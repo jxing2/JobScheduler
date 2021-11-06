@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <property name="pattern1" value="%-4relative [%thread] %-5level %logger{60} - %msg%n"/>
+    <property name="pattern2" value="%msg%n"/>
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${pattern1}</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <root>
+        <appender-ref ref="consoleAppender"/>
+    </root>
+
+</configuration>
