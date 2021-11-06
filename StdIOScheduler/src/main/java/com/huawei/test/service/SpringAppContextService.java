@@ -1,17 +1,24 @@
 package com.huawei.test.service;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class SpringAppContextService {
+public class SpringAppContextService implements Runnable {
     private final AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 
-    public void start() {
+    private void scanPackage() {
         ctx.scan("com.huawei.test");
         ctx.refresh();
     }
 
-    public ApplicationContext getApplicationContext() {
-        return ctx;
+    @Override
+    public void run() {
+        scanPackage();
+        JobRouter jobRouter = ctx.getBean(JobRouter.class);
+        jobRouter.blockingStart();
+    }
+
+    public void stop() {
+        JobRouter jobRouter = ctx.getBean(JobRouter.class);
+        jobRouter.stop();
     }
 }

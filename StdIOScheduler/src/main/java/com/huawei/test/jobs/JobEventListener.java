@@ -14,5 +14,6 @@ public class JobEventListener implements ApplicationListener<JobEvent> {
     public void onApplicationEvent(JobEvent event) {
         BaseJobEntity baseJobEntity = event.getBaseJobEntity();
         LogUtil.log("JobId : {}", baseJobEntity.getJobId());
+
     }
 }
